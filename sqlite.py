@@ -50,6 +50,7 @@ def chercherC(nom, prenom):
         cursor.execute(recherche, (nom, prenom))
     return cursor.fetchone()
 
+labelContact = None 
 def boutonChercherC():
     divChercherContact = customtkinter.CTkFrame(fenetre)
     divChercherContact.place(x=screenX-screenX/2.5, y=screenY-screenY/2.42)
@@ -69,7 +70,8 @@ def boutonChercherC():
     labelTrouver = customtkinter.CTkLabel(divChercherContact, text="Le contact existe")
     labelPasTrouver = customtkinter.CTkLabel(divChercherContact, text="Le contact n'existe pas")
     erreurLabel = customtkinter.CTkLabel(divChercherContact, text='Veuillez remplir correctement les champs de caractère !')
-    
+    labelContact = customtkinter.CTkLabel(divChercherContact)
+
     def chercherContactInput():
         nonlocal erreurLabel
         erreurLabel.grid_forget()
@@ -77,6 +79,8 @@ def boutonChercherC():
         labelTrouver.grid_forget()
         nonlocal labelPasTrouver
         labelPasTrouver.grid_forget()
+        nonlocal labelContact
+        labelContact.grid_forget()
         
         nom = inputNom.get().strip()
         prenom = inputPrenom.get().strip()
@@ -97,6 +101,7 @@ def boutonChercherC():
                 labelPasTrouver.grid(row=3, column=0, columnspan=2, pady=5)
         else:
             erreurLabel.grid(row=3, column=0, columnspan=2, pady=5)
+
     
     boutonValidation = customtkinter.CTkButton(divChercherContact, text='Chercher le contact', command=chercherContactInput)
     boutonValidation.grid(row=2, column=0, columnspan=2, pady=10)
