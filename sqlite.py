@@ -52,7 +52,7 @@ def chercherC(nom, prenom):
 
 def boutonChercherC():
     divChercherContact = customtkinter.CTkFrame(fenetre)
-    divChercherContact.place(x=screenX-screenX/3.35, y=screenY-screenY/2.45)
+    divChercherContact.place(x=screenX-screenX/2.5, y=screenY-screenY/2.42)
 
     labelzonesNomPrenomEmailTelephone = customtkinter.CTkLabel(divChercherContact, text='Remplir les informations du contact à chercher')
     labelzonesNomPrenomEmailTelephone.grid(row=0, column=0, columnspan=2, pady=5, padx=20)
@@ -66,7 +66,6 @@ def boutonChercherC():
     zoneDeTextePrenom = customtkinter.CTkEntry(divChercherContact, textvariable=inputPrenom)
     zoneDeTextePrenom.grid(row=1, column=1, padx=10, pady=5)
     zoneDeTextePrenom.insert(0, "Prénom")
-    
     labelTrouver = customtkinter.CTkLabel(divChercherContact, text="Le contact existe")
     labelPasTrouver = customtkinter.CTkLabel(divChercherContact, text="Le contact n'existe pas")
     erreurLabel = customtkinter.CTkLabel(divChercherContact, text='Veuillez remplir correctement les champs de caractère !')
@@ -83,14 +82,17 @@ def boutonChercherC():
         prenom = inputPrenom.get().strip()
         
         if (nom != "Nom" and prenom != "Prénom") and (nom.strip() != "" and prenom.strip() != ""):
-            contact = chercherC(nom, prenom)  # Passage de nom et prénom à la fonction chercherC
+            contact = chercherC(nom, prenom) 
             if contact:
                 zoneDeTexteNom.delete(0, 'end')
                 zoneDeTexteNom.insert(0, "Nom")
                 zoneDeTextePrenom.delete(0, 'end')
                 zoneDeTextePrenom.insert(0, "Prénom")
                 afficherContacts()
+                contact = f"Nom: {contact[1]}  |  Prénom: {contact[2]}  |  E-mail: {contact[3]}  |  Téléphone: {contact[4]}"
                 labelTrouver.grid(row=3, column=0, columnspan=2, pady=5)
+                labelContact = customtkinter.CTkLabel(divChercherContact, text=contact)
+                labelContact.grid(row=4, column=0, columnspan=2, pady=5)
             else:
                 labelPasTrouver.grid(row=3, column=0, columnspan=2, pady=5)
         else:
@@ -128,7 +130,6 @@ def modifierC(nom, prenom, email, telephone, nouveauNom=None, nouveauPrenom=None
 
         if nouvellesValeurs:
             modifier += ",".join(nouvellesValeurs) + " WHERE nom = ? AND prenom = ? AND email = ? AND telephone = ?"
-            # Ajout des anciens paramètres pour la clause WHERE
             lignes.extend([nom, prenom, email, telephone])
             with conn:
                 cursor.execute(modifier, lignes)
@@ -140,7 +141,7 @@ def modifierC(nom, prenom, email, telephone, nouveauNom=None, nouveauPrenom=None
 
 def boutonModifierUnC():
     divModifierContact = customtkinter.CTkFrame(fenetre)
-    divModifierContact.place(x=screenX-screenX/3.35,y=screenY/12+2*(screenY/24)-screenY/26)
+    divModifierContact.place(x=screenX-screenX/2.5,y=screenY/12+2*(screenY/24)-screenY/26)
 
     labelzonesNomPrenomEmailTelephone = customtkinter.CTkLabel(divModifierContact, text='Remplir les informations du contact à ajouter')
     labelzonesNomPrenomEmailTelephone.grid(row=0, column=0, columnspan=2, pady=5, padx=20)
@@ -316,7 +317,7 @@ def supprimerC(nom, prenom):
 
 def boutonSupprimerUnC():
     divSupprimer = customtkinter.CTkFrame(fenetre)
-    divSupprimer.place(x=screenX-screenX/3.45,y=screenY-screenY/5.5)
+    divSupprimer.place(x=screenX-screenX/2.5,y=screenY-screenY/5.5)
     labelzonesNomPrenom = customtkinter.CTkLabel(divSupprimer, text='Remplir les informations du contact à supprimer')
     labelzonesNomPrenom.grid(row=0, column=0, columnspan=2, pady=5)
     inputNom = StringVar()
@@ -358,7 +359,7 @@ def supprimerAllC():
 
 def boutonSupprimerAllC():
     boutonSupprimerTout = customtkinter.CTkButton(fenetre, text='Supprimer tous les contacts', command=supprimerAllC)
-    boutonSupprimerTout.place(x=screenX-screenX/4,y=screenY/12+screenY/24-screenY/26)
+    boutonSupprimerTout.place(x=screenX-screenX/2.85,y=screenY/12+screenY/24-screenY/26)
     boutonAfficherBDD()
     afficherContacts()
 
@@ -424,7 +425,7 @@ def choisirFichier():
 
 def boutonAjouterFichierContact():
     boutonAjouterListeContact = customtkinter.CTkButton(fenetre, text="Choisir un fichier", command=choisirFichier)
-    boutonAjouterListeContact.place(x=screenX-screenX/4.25,y=screenY/12-screenY/26)
+    boutonAjouterListeContact.place(x=screenX-screenX/3,y=screenY/12-screenY/26)
 
 #<-------------------------------Appels des fonctions d'affichage Tkinter----------------------------------------->
 
