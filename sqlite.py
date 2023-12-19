@@ -26,10 +26,10 @@ cursor = conn.cursor() # permet de manipuler la bdd
 
 cursor.execute("""CREATE TABLE IF NOT EXISTS carnetAdresse (
             id INTEGER PRIMARY KEY,
-            nom TEXT,
-            prenom TEXT,
-            email TEXT,
-            telephone TEXT
+            nom TEXT UNIQUE,
+            prenom TEXT UNIQUE,
+            email TEXT UNIQUE,
+            telephone TEXT UNIQUE
             )""")
 
 #<-------------------------------Fonctions pour l'actualisation de l'affichage----------------------------------------->
